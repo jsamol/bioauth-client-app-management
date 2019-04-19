@@ -90,7 +90,7 @@ class AppList extends Component {
                       onClick={() => this.toggleAccordion(idx)}
                       aria-expanded={this.state.accordion[idx]}
                       aria-controls={`collapse${idx}`}>
-                        <img src={icon} className="img-circle img-icon" alt="app-icon" />
+                        <img src={icon} className="img-circle img-icon" alt="" />
                         <h5 className="text-left ml-2 d-inline-block m-0">{app.name}</h5>
                     </CardHeader>
                     <Collapse
