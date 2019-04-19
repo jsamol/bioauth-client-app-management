@@ -4,9 +4,20 @@ import PropTypes from 'prop-types'
 
 const AppItem = React.lazy(() => import("../AppItem"));
 
+const accordion = (props) => {
+  const appsNumber = props.appList.length;
+  console.log(appsNumber);
+  return appsNumber > 1 ? Array(appsNumber).fill(false) : [true];
+};
+
+const status = (props) => {
+  return Array(props.appList.length).fill(false);
+};
+
 const propTypes = {
   appList: PropTypes.arrayOf(PropTypes.object).isRequired
 };
+
 const defaultProps = {};
 
 class AppList extends Component {
@@ -18,13 +29,21 @@ class AppList extends Component {
     this.onEntered = this.onEntered.bind(this);
     this.onExited = this.onExited.bind(this);
 
-    const appsNumber = this.props.appList.length;
-    const accordion = appsNumber > 1 ? Array(appsNumber).fill(false) : [true];
-
     this.state = {
-      accordion,
-      status: Array(appsNumber).fill(false)
+      accordion: accordion(props),
+      status: status(props)
     };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.accordion.length !== props.appList.length || state.status.length !== props.appList.length) {
+      return {
+        accordion: accordion(props),
+        status: status(props)
+      };
+    }
+
+    return null
   }
 
   onEntered(tab) {
