@@ -15,9 +15,9 @@ import {
   AppSidebarNav,
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../_nav';
+import navigation from '../../navigation/DefaultLayout/_nav';
 // routes config
-import routes from '../../routes';
+import routes from '../../navigation/DefaultLayout/routes';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
