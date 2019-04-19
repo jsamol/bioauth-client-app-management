@@ -37,7 +37,7 @@ class BioAuthLayout extends Component {
       return {
         name: app.name,
         url: `/apps/${app.name.replace(/\s+/g,'')}`,
-        icon: 'icon-info'
+        icon: 'fa fa-android'
       }
     });
     return { items: [ ...sidebarNavigation, ...appsNavigation ] };
