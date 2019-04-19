@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardHeader, ListGroup, ListGroupItem} from 'reactstrap';
+import PropTypes from 'prop-types'
+
+const propTypes = {
+  appList: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+const defaultProps = {};
 
 class Apps extends Component {
 
@@ -12,11 +18,9 @@ class Apps extends Component {
           </CardHeader>
           <CardBody>
             <ListGroup>
-              <ListGroupItem>Cras justo odio</ListGroupItem>
-              <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-              <ListGroupItem>Morbi leo risus</ListGroupItem>
-              <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-              <ListGroupItem>Vestibulum at eros</ListGroupItem>
+              {this.props.appList.map((app) => {
+                return <ListGroupItem>{app.name}</ListGroupItem>
+              })}
             </ListGroup>
           </CardBody>
         </Card>
@@ -25,5 +29,8 @@ class Apps extends Component {
     );
   }
 }
+
+Apps.propTypes = propTypes;
+Apps.defaultProps = defaultProps;
 
 export default Apps;
