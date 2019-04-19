@@ -81,7 +81,7 @@ class BioAuthLayout extends Component {
                     let routeProps = {}
 
                     switch (route.name) {
-                      case routeName.APPS:
+                      case routeName.APP_LIST:
                         routeProps.appList = this.state.apps;
                         break;
                       default:

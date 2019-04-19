@@ -9,7 +9,7 @@ const propTypes = {
 };
 const defaultProps = {};
 
-class Apps extends Component {
+class AppList extends Component {
 
   constructor(props) {
     super(props);
@@ -101,7 +101,7 @@ class Apps extends Component {
   }
 }
 
-Apps.propTypes = propTypes;
-Apps.defaultProps = defaultProps;
+AppList.propTypes = propTypes;
+AppList.defaultProps = defaultProps;
 
-export default Apps;
+export default AppList;
