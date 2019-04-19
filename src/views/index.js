@@ -1,3 +1,4 @@
+import Apps from './Apps'
 import {
   Breadcrumbs,
   Cards,
@@ -28,6 +29,7 @@ import { Colors, Typography } from './Theme';
 import Widgets from './Widgets';
 
 export {
+  Apps,
   Badges,
   Typography,
   Colors,
