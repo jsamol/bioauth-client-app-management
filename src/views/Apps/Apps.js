@@ -13,12 +13,35 @@ class Apps extends Component {
 
   constructor(props) {
     super(props);
+
     this.toggleAccordion = this.toggleAccordion.bind(this);
+    this.onEntered = this.onEntered.bind(this);
+    this.onExited = this.onExited.bind(this);
 
     const appsNumber = this.props.appList.length;
     const accordion = appsNumber > 1 ? Array(appsNumber).fill(false) : [true];
 
-    this.state = { accordion };
+    this.state = {
+      accordion,
+      status: Array(appsNumber).fill(false)
+    };
+  }
+
+  onEntered(tab) {
+    this.onCollapseAction(tab, true)
+  }
+
+  onExited(tab) {
+    this.onCollapseAction(tab, false)
+  }
+
+  onCollapseAction(tab, isOpen) {
+    const prevState = this.state.status;
+    const state = prevState.map((x, index) => tab === index ? isOpen : x);
+
+    this.setState({
+      status: state
+    });
   }
 
   toggleAccordion(tab) {
@@ -54,11 +77,17 @@ class Apps extends Component {
                     </CardHeader>
                     <Collapse
                       isOpen={this.state.accordion[idx]}
+                      onEntered={() => this.onEntered(idx)}
+                      onExited={() => this.onExited(idx)}
                       data-parent="#accordion"
                       id={`collapse${idx}`}
                       aria-labelledby={`heading${idx}`}>
                       <CardBody>
-                        <AppItem clientId={app.clientId} secret={app.secret} description={app.description} />
+                        <AppItem
+                          clientId={app.clientId}
+                          secret={app.secret}
+                          description={app.description}
+                          isOpened={this.state.status[idx]} />
                       </CardBody>
                     </Collapse>
                   </Card>
