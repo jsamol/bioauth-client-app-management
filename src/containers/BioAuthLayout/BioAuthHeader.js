@@ -13,9 +13,6 @@ const defaultProps = {};
 class BioAuthHeader extends Component {
   render() {
 
-    // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />

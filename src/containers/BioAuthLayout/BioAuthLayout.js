@@ -11,8 +11,8 @@ import {
   AppSidebarMinimizer,
   AppSidebarNav,
 } from '@coreui/react';
-import navigation from "../../navigation/nav";
-import routes from "../../navigation/routes";
+import navigation from "../../navigation/BioAuthLayout/nav";
+import routes from "../../navigation/BioAuthLayout/routes";
 import {Container} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
 
