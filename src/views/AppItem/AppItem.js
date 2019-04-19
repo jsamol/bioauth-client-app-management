@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types'
 import {Button, Col, Row} from "reactstrap";
 import {Line} from "react-chartjs-2";
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
+import routes from "../../navigation/BioAuthLayout/routes";
 
 const line = {
   labels: [],
@@ -40,8 +42,8 @@ const options = {
 
 };
 
-
 const propTypes = {
+  name: PropTypes.string.isRequired,
   clientId: PropTypes.string.isRequired,
   secret: PropTypes.string.isRequired,
   description: PropTypes.string,
@@ -50,6 +52,16 @@ const propTypes = {
 const defaultProps = {};
 
 class AppItem extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.routeChange = this.routeChange.bind(this);
+  }
+
+  routeChange() {
+    this.props.history.push(`${routes.APP_LIST.path}/${this.props.name.replace(/\s+/g,'')}`)
+  }
 
   render() {
     return (
@@ -74,7 +86,7 @@ class AppItem extends Component {
               </Col>
               <Col col="2">
                 <div className="d-flex justify-content-end">
-                  <Button color="ghost-primary">More Info</Button>
+                  <Button color="ghost-primary" onClick={this.routeChange}>More Info</Button>
                 </div>
               </Col>
             </Row>
@@ -95,4 +107,4 @@ class AppItem extends Component {
 AppItem.propTypes = propTypes;
 AppItem.defaultProps = defaultProps;
 
-export default AppItem;
+export default withRouter(AppItem);

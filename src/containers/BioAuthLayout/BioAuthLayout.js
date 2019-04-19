@@ -12,7 +12,7 @@ import {
   AppSidebarNav,
 } from '@coreui/react';
 import sidebarNavigation from "../../navigation/BioAuthLayout/nav";
-import {routeName, routes} from "../../navigation/BioAuthLayout/routes";
+import routes from "../../navigation/BioAuthLayout/routes";
 import {Container} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {getApps} from "../../network";
@@ -31,6 +31,8 @@ class BioAuthLayout extends Component {
   }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
+
+  routeList = () => Object.keys(routes).map((key) => routes[key]);
 
   navigation = () => {
     const appsNavigation = this.state.apps.map((app) => {
@@ -73,15 +75,15 @@ class BioAuthLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            <AppBreadcrumb appRoutes={routes}/>
+            <AppBreadcrumb appRoutes={this.routeList()}/>
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>
-                  {routes.map((route, idx) => {
-                    let routeProps = {}
+                  {this.routeList().map((route, idx) => {
+                    let routeProps = {};
 
                     switch (route.name) {
-                      case routeName.APP_LIST:
+                      case routes.APP_LIST.name:
                         routeProps.appList = this.state.apps;
                         break;
                       default:

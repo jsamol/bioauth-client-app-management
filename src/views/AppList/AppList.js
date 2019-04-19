@@ -6,7 +6,6 @@ const AppItem = React.lazy(() => import("../AppItem"));
 
 const accordion = (props) => {
   const appsNumber = props.appList.length;
-  console.log(appsNumber);
   return appsNumber > 1 ? Array(appsNumber).fill(false) : [true];
 };
 
@@ -103,6 +102,7 @@ class AppList extends Component {
                       aria-labelledby={`heading${idx}`}>
                       <CardBody>
                         <AppItem
+                          name={app.name}
                           clientId={app.clientId}
                           secret={app.secret}
                           description={app.description}
