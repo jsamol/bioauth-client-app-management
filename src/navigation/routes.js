@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Dashboard = React.lazy(() => import('../../views/Dashboard'));
-const Apps = React.lazy(() => import('../../views/Apps'));
+const Dashboard = React.lazy(() => import('../views/Dashboard/Dashboard'));
+const Apps = React.lazy(() => import('../views/Apps/Apps'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
