@@ -114,4 +114,4 @@ class NewApp extends Component {
 NewApp.propTypes = propTypes;
 NewApp.defaultProps = defaultProps;
 
-export default NewApp;
+export default withRouter(NewApp);
