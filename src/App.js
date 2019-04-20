@@ -6,7 +6,7 @@ import './App.scss';
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
 // Containers
-const BioAuthLayout = React.lazy(() => import('./containers/layouts/BioAuthLayout'));
+const BioAuthLayout = React.lazy(() => import('./components/layouts/BioAuth'));
 
 // Pages
 const Page404 = React.lazy(() => import('./components/views/Pages/Page404'));

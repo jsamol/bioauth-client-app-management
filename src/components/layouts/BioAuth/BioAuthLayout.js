@@ -19,8 +19,8 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import Keycloak from "keycloak-js";
 import {apiController} from "../../../network/ApiController";
 
-const AppListHeader = React.lazy(() => import('./BioAuthHeader'));
-const AppListFooter = React.lazy(() => import('./BioAuthFooter'));
+const BioAuthHeader = React.lazy(() => import('./Header'));
+const BioAuthFooter = React.lazy(() => import('./Footer'));
 
 const propTypes = {
   apps: PropTypes.arrayOf(
@@ -32,7 +32,10 @@ const propTypes = {
       description: PropTypes.string
     })
   ),
-  setApps: PropTypes.func.isRequired
+  setApps: PropTypes.func.isRequired,
+
+  userInfo: PropTypes.object,
+  setUserInfo: PropTypes.func.isRequired
 };
 const defaultProps = {};
 
@@ -46,7 +49,6 @@ class BioAuthLayout extends Component {
     this.state = {
       keycloak: null,
       authenticated: false,
-      userInfo: null,
     };
   }
 
@@ -93,10 +95,8 @@ class BioAuthLayout extends Component {
 
   loadUserInfo() {
     this.state.keycloak.loadUserInfo()
-      .success((userInfo) => {
-        this.setState({
-          userInfo
-        });
+      .success((data) => {
+        this.props.setUserInfo(data);
       }).error((error) => {
       // TODO: Handle error properly
       console.log(error)
@@ -117,7 +117,7 @@ class BioAuthLayout extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <AppListHeader email={this.state.userInfo ? this.state.userInfo.email : ""} onLogout={this.signOut}/>
+            <BioAuthHeader onLogout={this.signOut}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -166,7 +166,7 @@ class BioAuthLayout extends Component {
         </div>
         <AppFooter>
           <Suspense fallback={this.loading()}>
-            <AppListFooter />
+            <BioAuthFooter />
           </Suspense>
         </AppFooter>
       </div>

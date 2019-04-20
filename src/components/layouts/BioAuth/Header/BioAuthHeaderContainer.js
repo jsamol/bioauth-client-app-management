@@ -1,16 +1,15 @@
 import {connect} from 'react-redux';
-import {BioAuthLayout} from "../../../components/layouts";
-import {setApps} from "../../../actions";
+import BioAuthHeader from "./BioAuthHeader";
 
 const mapStateToProps = (state) => ({
-  apps: state.apps
+  email: state.userInfo ? state.userInfo.email : ""
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setApps: (apps) => dispatch(setApps(apps))
+
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BioAuthLayout);
+)(BioAuthHeader);

@@ -1,3 +1,3 @@
-import BioAuthLayout from './BioAuthLayout/BioAuthLayout'
+import BioAuthLayoutContainer from './BioAuth'
 
-export { BioAuthLayout };
+export { BioAuthLayoutContainer };
