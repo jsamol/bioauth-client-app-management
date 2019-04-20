@@ -1,4 +1,5 @@
-import {getApps} from './service'
+import {getApps} from './service/AppsService'
+import {header} from "./ApiConst";
 
 export const apiController = {
   token: null,
@@ -6,9 +7,7 @@ export const apiController = {
   getApps: (onSuccess, onError) => {
     let headers = {};
     if (apiController.token) {
-      headers = {
-        'Authorization': `Bearer ${apiController.token}`
-      }
+      headers[header.AUTHORIZATION] = `Bearer ${apiController.token}`;
     }
     getApps(headers, onSuccess, onError)
   }

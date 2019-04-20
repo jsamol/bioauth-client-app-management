@@ -56,10 +56,10 @@ class AppItem extends Component {
   constructor(props) {
     super(props);
 
-    this.routeChange = this.routeChange.bind(this);
+    this.redirectToAppDetails = this.redirectToAppDetails.bind(this);
   }
 
-  routeChange() {
+  redirectToAppDetails() {
     this.props.history.push(`${routes.APP_LIST.path}/${this.props.name.replace(/\s+/g,'')}`)
   }
 
@@ -86,7 +86,7 @@ class AppItem extends Component {
               </Col>
               <Col col="2">
                 <div className="d-flex justify-content-end">
-                  <Button color="ghost-primary" onClick={this.routeChange}>More Info</Button>
+                  <Button color="ghost-primary" onClick={this.redirectToAppDetails}>More Info</Button>
                 </div>
               </Col>
             </Row>
