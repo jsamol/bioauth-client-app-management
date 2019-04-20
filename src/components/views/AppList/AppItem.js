@@ -9,6 +9,7 @@ import Input from 'reactstrap/es/Input';
 import Label from 'reactstrap/es/Label';
 import InputGroupAddon from 'reactstrap/es/InputGroupAddon';
 import InputGroup from 'reactstrap/es/InputGroup';
+import stringUtils from '../../../utils/stringUtils';
 
 const line = {
   labels: [],
@@ -76,7 +77,7 @@ class AppItem extends Component {
   }
 
   redirectToAppDetails() {
-    this.props.history.push(`${routes.APP_LIST.path}/${this.props.name.replace(/\s+/g, '')}`);
+    this.props.history.push(`${routes.APP_LIST.path}/${stringUtils.toUrlParam(this.props.name)}`);
   }
 
   render() {

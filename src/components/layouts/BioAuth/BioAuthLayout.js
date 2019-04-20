@@ -17,6 +17,7 @@ import Keycloak from 'keycloak-js';
 import apiController from '../../../network';
 import sidebarNav from '../../../navigation/sidebarNav';
 import routes from '../../../navigation/routes';
+import stringUtils from '../../../utils/stringUtils';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
 const BioAuthFooter = React.lazy(() => import('./Footer'));
@@ -54,7 +55,7 @@ class BioAuthLayout extends Component {
     const appsNavigation = this.props.apps.map((app) => {
       return {
         name: app.name,
-        url: `/apps/${app.name.replace(/\s+/g, '')}`,
+        url: `/apps/${stringUtils.toUrlParam(app.name)}`,
         icon: 'fa fa-android',
       };
     });

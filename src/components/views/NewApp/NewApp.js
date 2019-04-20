@@ -4,6 +4,7 @@ import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label,
 import apiController from '../../../network';
 import PropTypes from 'prop-types';
 import routes from '../../../navigation/routes';
+import stringUtils from '../../../utils/stringUtils';
 
 const propTypes = {
   addApp: PropTypes.func.isRequired,
@@ -42,7 +43,7 @@ class NewApp extends Component {
     });
     apiController.registerApp(this.state.name, this.state.description, (res) => {
       this.props.addApp(res);
-      this.props.history.push(`${routes.APP_LIST.path}/${res.name.replace(/\s+/g, '')}`);
+      this.props.history.push(`${routes.APP_LIST.path}/${stringUtils.toUrlParam(res.name)}`);
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
