@@ -93,15 +93,15 @@ class AppItem extends Component {
               <Col sm="8">
                 <div className="mb-3">
                   <Label>App ID</Label>
-                  <Input readonly="readonly" type="text" value={this.props.clientId}/>
+                  <Input readOnly="readonly" type="text" defaultValue={this.props.clientId}/>
                 </div>
                 <div>
                   <Label>App Secret</Label>
                   <InputGroup>
                     <Input
-                      readonly="readonly"
+                      readOnly="readonly"
                       type={this.state.appSecretShown ? "text" : "password"}
-                      value={this.props.secret}/>
+                      defaultValue={this.props.secret}/>
                     <InputGroupAddon addonType="append">
                       <Button color="secondary" onClick={this.toggleSecretVisibility}>
                         {this.state.appSecretShown ? "Hide" : "Show"}
