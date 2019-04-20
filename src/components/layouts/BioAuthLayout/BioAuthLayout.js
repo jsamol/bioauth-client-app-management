@@ -11,12 +11,12 @@ import {
   AppSidebarMinimizer,
   AppSidebarNav,
 } from '@coreui/react';
-import sidebarNavigation from "../../navigation/BioAuthLayout/nav";
-import routes from "../../navigation/BioAuthLayout/routes";
+import sidebarNavigation from "../../../navigation/BioAuthLayout/nav";
+import routes from "../../../navigation/BioAuthLayout/routes";
 import {Container} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
 import Keycloak from "keycloak-js";
-import {apiController} from "../../network/ApiController";
+import {apiController} from "../../../network/ApiController";
 
 const AppListHeader = React.lazy(() => import('./BioAuthHeader'));
 const AppListFooter = React.lazy(() => import('./BioAuthFooter'));
@@ -90,9 +90,9 @@ class BioAuthLayout extends Component {
   }
 
   loadApps() {
-    apiController.getApps((res) => {
+    apiController.getApps((data) => {
       this.setState({
-        apps: res.data
+        apps: data
       })
     }, (error) => {
       // TODO: Handle error properly

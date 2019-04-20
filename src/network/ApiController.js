@@ -1,5 +1,5 @@
 import {addApp, getApps} from './service/AppsService'
-import {header} from "./ApiConst";
+import {contentType, header} from "./ApiConst";
 
 export const apiController = {
   token: null,
@@ -8,6 +8,7 @@ export const apiController = {
     if (apiController.token) {
       headers[header.AUTHORIZATION] = `Bearer ${this.token}`;
     }
+    headers[header.CONTENT_TYPE] = contentType.JSON;
     return headers;
   },
 
@@ -15,10 +16,9 @@ export const apiController = {
     getApps(apiController.headers, onSuccess, onError, doFinally)
   },
 
-  registerApp(name, icon, description, onSuccess, onError, doFinally=(() => {})) {
+  registerApp(name, description, onSuccess, onError, doFinally=(() => {})) {
     const app = {
       name,
-      icon,
       description
     };
     addApp(app, apiController.headers, onSuccess, onError, doFinally);

@@ -6,11 +6,11 @@ import './App.scss';
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
 // Containers
-const AppListLayout = React.lazy(() => import('./containers/BioAuthLayout'));
+const AppListLayout = React.lazy(() => import('./components/layouts/BioAuthLayout'));
 
 // Pages
-const Page404 = React.lazy(() => import('./views/Pages/Page404'));
-const Page500 = React.lazy(() => import('./views/Pages/Page500'));
+const Page404 = React.lazy(() => import('./components/views/Pages/Page404'));
+const Page500 = React.lazy(() => import('./components/views/Pages/Page500'));
 
 class App extends Component {
 

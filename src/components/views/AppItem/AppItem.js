@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {Button, Col, Row} from "reactstrap";
 import {Line} from "react-chartjs-2";
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
-import routes from "../../navigation/BioAuthLayout/routes";
+import routes from "../../../navigation/BioAuthLayout/routes";
 import Input from "reactstrap/es/Input";
 import Label from "reactstrap/es/Label";
 import InputGroupAddon from "reactstrap/es/InputGroupAddon";
@@ -93,15 +93,15 @@ class AppItem extends Component {
               <Col sm="8">
                 <div className="mb-3">
                   <Label>App ID</Label>
-                  <Input readonly="readonly" type="text" value={this.props.clientId}/>
+                  <Input readOnly="readonly" type="text" defaultValue={this.props.clientId}/>
                 </div>
                 <div>
                   <Label>App Secret</Label>
                   <InputGroup>
                     <Input
-                      readonly="readonly"
+                      readOnly="readonly"
                       type={this.state.appSecretShown ? "text" : "password"}
-                      value={this.props.secret}/>
+                      defaultValue={this.props.secret}/>
                     <InputGroupAddon addonType="append">
                       <Button color="secondary" onClick={this.toggleSecretVisibility}>
                         {this.state.appSecretShown ? "Hide" : "Show"}
