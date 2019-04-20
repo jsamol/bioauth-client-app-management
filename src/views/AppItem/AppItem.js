@@ -5,6 +5,10 @@ import {Button, Col, Row} from "reactstrap";
 import {Line} from "react-chartjs-2";
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
 import routes from "../../navigation/BioAuthLayout/routes";
+import Input from "reactstrap/es/Input";
+import Label from "reactstrap/es/Label";
+import InputGroupAddon from "reactstrap/es/InputGroupAddon";
+import InputGroup from "reactstrap/es/InputGroup";
 
 const line = {
   labels: [],
@@ -56,7 +60,19 @@ class AppItem extends Component {
   constructor(props) {
     super(props);
 
+    this.toggleSecretVisibility = this.toggleSecretVisibility.bind(this);
     this.redirectToAppDetails = this.redirectToAppDetails.bind(this);
+
+    this.state = {
+      appSecretShown: false
+    }
+  }
+
+  toggleSecretVisibility() {
+    const prevState = this.state.appSecretShown;
+    this.setState({
+      appSecretShown: !prevState
+    });
   }
 
   redirectToAppDetails() {
@@ -67,31 +83,43 @@ class AppItem extends Component {
     return (
       <div>
         <Row>
-          <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
+          <Col xl="6">
             <Row>
-              <Col col="12" xl className="mb-3 mb-xl-0">
+              <Col>
                 {this.props.description && <p className="text-justify">{this.props.description}</p>}
               </Col>
             </Row>
             <Row>
-              <Col col="10" sm="8" md="6" xl className="mb-3 mb-xl-0">
-                <div>
-                  <h5 className="font-weight-bold d-inline">clientId </h5>
-                  <h5 className="d-inline">{this.props.clientId}</h5>
+              <Col sm="8">
+                <div className="mb-3">
+                  <Label>App ID</Label>
+                  <Input readonly="readonly" type="text" value={this.props.clientId}/>
                 </div>
                 <div>
-                  <h5 className="font-weight-bold d-inline">secret </h5>
-                  <h5 className="d-inline">{this.props.secret}</h5>
+                  <Label>App Secret</Label>
+                  <InputGroup>
+                    <Input
+                      readonly="readonly"
+                      type={this.state.appSecretShown ? "text" : "password"}
+                      value={this.props.secret}/>
+                    <InputGroupAddon addonType="append">
+                      <Button color="secondary" onClick={this.toggleSecretVisibility}>
+                        {this.state.appSecretShown ? "Hide" : "Show"}
+                      </Button>
+                    </InputGroupAddon>
+                  </InputGroup>
                 </div>
               </Col>
-              <Col col="2">
-                <div className="d-flex justify-content-end">
+            </Row>
+            <Row>
+              <Col lg="8" md="12" className="mt-4 mb-4">
+                <div className='d-flex justify-content-center'>
                   <Button color="ghost-primary" onClick={this.redirectToAppDetails}>More Info</Button>
                 </div>
               </Col>
             </Row>
           </Col>
-          <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
+          <Col xl="6">
             {this.props.isOpened &&
               <div className="chart-wrapper">
                 <Line data={line} options={options}/>

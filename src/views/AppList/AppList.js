@@ -85,10 +85,10 @@ class AppList extends Component {
         <Card>
           <CardHeader>
             <Row className="d-flex align-items-center">
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
+              <Col xs="6">
                 <i className="icon-list"></i> Registered Apps
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0 d-flex justify-content-end">
+              <Col xs="6" className="d-flex justify-content-end">
                 <Button color="ghost-primary" onClick={this.redirectToAppRegistration}>Add New</Button>
               </Col>
             </Row>
