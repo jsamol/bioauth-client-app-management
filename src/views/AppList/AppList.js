@@ -96,7 +96,6 @@ class AppList extends Component {
           <CardBody>
             <div id="accordion">
               { this.props.appList.map((app, idx) => {
-                const icon = app.icon ? app.icon : '../../assets/img/default_app_icon.png';
                 return (
                   <Card key={idx} className="mb-1">
                     <CardHeader
@@ -105,7 +104,7 @@ class AppList extends Component {
                       onClick={() => this.toggleAccordion(idx)}
                       aria-expanded={this.state.accordion[idx]}
                       aria-controls={`collapse${idx}`}>
-                        <img src={icon} className="img-circle img-icon" alt="" />
+                        <img src={'../../assets/img/default_app_icon.png'} className="img-circle img-icon" alt="" />
                         <h5 className="text-left ml-2 d-inline-block m-0">{app.name}</h5>
                     </CardHeader>
                     <Collapse

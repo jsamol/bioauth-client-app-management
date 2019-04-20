@@ -15,10 +15,9 @@ export const apiController = {
     getApps(apiController.headers, onSuccess, onError, doFinally)
   },
 
-  registerApp(name, icon, description, onSuccess, onError, doFinally=(() => {})) {
+  registerApp(name, description, onSuccess, onError, doFinally=(() => {})) {
     const app = {
       name,
-      icon,
       description
     };
     addApp(app, apiController.headers, onSuccess, onError, doFinally);
