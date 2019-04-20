@@ -15,7 +15,7 @@ import sidebarNavigation from "../../navigation/BioAuthLayout/nav";
 import routes from "../../navigation/BioAuthLayout/routes";
 import {Container} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {getApps} from "../../network";
+import apiController from "../../network";
 import Keycloak from "keycloak-js";
 
 const AppListHeader = React.lazy(() => import('./BioAuthHeader'));
@@ -53,7 +53,6 @@ class BioAuthLayout extends Component {
 
   signOut() {
     if (this.state.keycloak) {
-      this.props.history.push(routes.HOME.path);
       this.state.keycloak.logout();
     }
   }
@@ -68,11 +67,13 @@ class BioAuthLayout extends Component {
         authenticated: res
       });
 
+      apiController.token = keycloak.token;
+
       this.loadUserInfo();
       this.loadApps();
-    }).error((error) => {
+    }).error(() => {
       // TODO: Handle error properly
-      console.log(`Authentication: error (${error})`);
+      console.log('Authentication: error');
     });
   }
 
@@ -89,7 +90,7 @@ class BioAuthLayout extends Component {
   }
 
   loadApps() {
-    getApps((res) => {
+    apiController.getApps((res) => {
       this.setState({
         apps: res.data
       })

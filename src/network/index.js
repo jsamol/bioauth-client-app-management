@@ -1,3 +1,3 @@
-import { getApps } from "./service/AppsService";
+import {apiController} from './ApiController'
 
-export { getApps }
+export default apiController
