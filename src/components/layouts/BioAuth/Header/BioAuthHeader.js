@@ -6,7 +6,7 @@ import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/re
 
 const propTypes = {
   email: PropTypes.string.isRequired,
-  onLogout: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
@@ -25,8 +25,8 @@ class BioAuthHeader extends Component {
               <p className="d-inline font-weight-bold">{this.props.email}</p>
               <img src={'../../assets/img/default_user_icon.png'} className="img-avatar d-inline" alt=""/>
             </DropdownToggle>
-            <DropdownMenu right style={{ right: 'auto' }}>
-              <DropdownItem onClick={this.props.onLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
+            <DropdownMenu right style={{right: 'auto'}}>
+              <DropdownItem onClick={this.props.logout}><i className="fa fa-lock"></i> Logout</DropdownItem>
             </DropdownMenu>
           </AppHeaderDropdown>
         </Nav>

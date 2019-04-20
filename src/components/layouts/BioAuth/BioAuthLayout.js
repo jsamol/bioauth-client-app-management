@@ -33,23 +33,18 @@ const propTypes = {
   ),
   setApps: PropTypes.func.isRequired,
 
-  userInfo: PropTypes.object,
+  setKeycloak: PropTypes.func.isRequired,
+  deleteKeycloak: PropTypes.func.isRequired,
+
   setUserInfo: PropTypes.func.isRequired,
+
+  authenticated: PropTypes.bool.isRequired,
+  loadUserInfo: PropTypes.func.isRequired,
 };
+
 const defaultProps = {};
 
 class BioAuthLayout extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.signOut = this.signOut.bind(this);
-
-    this.state = {
-      keycloak: null,
-      authenticated: false,
-    };
-  }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
 
@@ -66,34 +61,28 @@ class BioAuthLayout extends Component {
     return { items: [...sidebarNav, ...appsNavigation] };
   };
 
-  signOut() {
-    if (this.state.keycloak) {
-      this.state.keycloak.logout();
-    }
-  }
-
   componentDidMount() {
     const keycloak = Keycloak('/keycloak.json');
     keycloak.init({
       onLoad: 'login-required',
     }).success((res) => {
-      this.setState({
-        keycloak: keycloak,
-        authenticated: res,
-      });
-
+      this.props.setKeycloak(keycloak);
       apiController.token = keycloak.token;
 
       this.loadUserInfo();
       this.loadApps();
     }).error(() => {
+      if (this.props.authenticated) {
+        this.props.deleteKeycloak();
+      }
+
       // TODO: Handle error properly
       console.log('Authentication: error');
     });
   }
 
   loadUserInfo() {
-    this.state.keycloak.loadUserInfo().success((data) => {
+    this.props.loadUserInfo().success((data) => {
       this.props.setUserInfo(data);
     }).error((error) => {
       // TODO: Handle error properly
@@ -115,7 +104,7 @@ class BioAuthLayout extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense fallback={this.loading()}>
-            <BioAuthHeader onLogout={this.signOut}/>
+            <BioAuthHeader/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
