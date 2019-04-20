@@ -8,16 +8,24 @@ import routes from '../../../navigation/routes';
 const AppItem = React.lazy(() => import('./AppItem'));
 
 const accordion = (props) => {
-  const appsNumber = props.appList.length;
+  const appsNumber = props.apps.length;
   return appsNumber > 1 ? Array(appsNumber).fill(false) : [true];
 };
 
 const status = (props) => {
-  return Array(props.appList.length).fill(false);
+  return Array(props.apps.length).fill(false);
 };
 
 const propTypes = {
-  appList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  apps: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      clientId: PropTypes.string,
+      secret: PropTypes.string,
+      description: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 const defaultProps = {};
@@ -39,7 +47,7 @@ class AppList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (state.accordion.length !== props.appList.length || state.status.length !== props.appList.length) {
+    if (state.accordion.length !== props.apps.length || state.status.length !== props.apps.length) {
       return {
         accordion: accordion(props),
         status: status(props),
@@ -95,7 +103,7 @@ class AppList extends Component {
           </CardHeader>
           <CardBody>
             <div id="accordion">
-              {this.props.appList.map((app, idx) => {
+              {this.props.apps.map((app, idx) => {
                 return (
                   <Card key={idx} className="mb-1">
                     <CardHeader

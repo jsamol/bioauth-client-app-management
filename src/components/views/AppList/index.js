@@ -1,3 +1,3 @@
-import AppList from './AppList';
+import AppListContainer from './AppListContainer';
 
-export default AppList;
+export default AppListContainer;

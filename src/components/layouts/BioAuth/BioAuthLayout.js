@@ -112,7 +112,7 @@ class BioAuthLayout extends Component {
             <AppSidebarHeader/>
             <AppSidebarForm/>
             <Suspense>
-              <AppSidebarNav navConfig={this.navigation()} {...this.props} />
+              <AppSidebarNav navConfig={this.navigation()}/>
             </Suspense>
             <AppSidebarFooter/>
             <AppSidebarMinimizer/>
@@ -123,23 +123,13 @@ class BioAuthLayout extends Component {
               <Suspense fallback={this.loading()}>
                 <Switch>
                   {this.routeList().map((route, idx) => {
-                    let routeProps = {};
-
-                    switch (route.name) {
-                      case routes.APP_LIST.name:
-                        routeProps.appList = this.props.apps;
-                        break;
-                      default:
-                        break;
-                    }
-
                     return route.component ? (
                       <Route
                         key={idx}
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => <route.component {...routeProps} {...props} />}/>
+                        render={props => <route.component {...props} />}/>
                     ) : null;
                   })}
                   <Redirect from="/" exact={true} to="/dashboard"/>
