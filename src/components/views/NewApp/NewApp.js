@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import apiController from '../../../network';
+import PropTypes from 'prop-types';
+import routes from '../../../navigation/routes';
+
+const propTypes = {
+  addApp: PropTypes.func.isRequired,
+};
+
+const defaultProps = {};
 
 class NewApp extends Component {
 
@@ -32,8 +41,8 @@ class NewApp extends Component {
       disableForm: true,
     });
     apiController.registerApp(this.state.name, this.state.description, (res) => {
-      // TODO: Handle response
-      console.log(res);
+      this.props.addApp(res);
+      this.props.history.push(`${routes.APP_LIST.path}/${res.name.replace(/\s+/g, '')}`);
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
@@ -100,5 +109,8 @@ class NewApp extends Component {
     );
   }
 }
+
+NewApp.propTypes = propTypes;
+NewApp.defaultProps = defaultProps;
 
 export default NewApp;

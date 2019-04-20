@@ -1,3 +1,3 @@
-import NewApp from './NewApp';
+import NewAppContainer from './NewAppContainer';
 
-export default NewApp;
+export default NewAppContainer;
