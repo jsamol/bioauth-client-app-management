@@ -1,3 +1,3 @@
-import BioAuthHeaderContainer from "./BioAuthHeaderContainer";
+import BioAuthHeaderContainer from './BioAuthHeaderContainer';
 
 export default BioAuthHeaderContainer;

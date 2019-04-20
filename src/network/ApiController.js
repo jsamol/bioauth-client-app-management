@@ -1,7 +1,7 @@
-import {addApp, getApps} from './service/AppsService'
-import {contentType, header} from "./ApiConst";
+import { addApp, getApps } from './service/AppsService';
+import { contentType, header } from './ApiConst';
 
-export const apiController = {
+const apiController = {
   token: null,
   get headers() {
     let headers = {};
@@ -12,15 +12,17 @@ export const apiController = {
     return headers;
   },
 
-  getApps(onSuccess, onError, doFinally=(() => {})) {
-    getApps(apiController.headers, onSuccess, onError, doFinally)
+  getApps(onSuccess, onError, doFinally = (() => {})) {
+    getApps(apiController.headers, onSuccess, onError, doFinally);
   },
 
-  registerApp(name, description, onSuccess, onError, doFinally=(() => {})) {
+  registerApp(name, description, onSuccess, onError, doFinally = (() => {})) {
     const app = {
       name,
-      description
+      description,
     };
     addApp(app, apiController.headers, onSuccess, onError, doFinally);
-  }
+  },
 };
+
+export default apiController;

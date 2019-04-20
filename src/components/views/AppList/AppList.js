@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {withRouter} from "react-router-dom";
-import {Button, Card, CardBody, CardHeader, Collapse, Row} from 'reactstrap';
-import PropTypes from 'prop-types'
-import Col from "reactstrap/es/Col";
-import routes from "../../../navigation/BioAuthLayout/routes";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { Button, Card, CardBody, CardHeader, Collapse, Row } from 'reactstrap';
+import PropTypes from 'prop-types';
+import Col from 'reactstrap/es/Col';
+import routes from '../../../navigation/routes';
 
-const AppItem = React.lazy(() => import("../AppItem/AppItem"));
+const AppItem = React.lazy(() => import('./AppItem'));
 
 const accordion = (props) => {
   const appsNumber = props.appList.length;
@@ -17,7 +17,7 @@ const status = (props) => {
 };
 
 const propTypes = {
-  appList: PropTypes.arrayOf(PropTypes.object).isRequired
+  appList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const defaultProps = {};
@@ -34,7 +34,7 @@ class AppList extends Component {
 
     this.state = {
       accordion: accordion(props),
-      status: status(props)
+      status: status(props),
     };
   }
 
@@ -42,11 +42,11 @@ class AppList extends Component {
     if (state.accordion.length !== props.appList.length || state.status.length !== props.appList.length) {
       return {
         accordion: accordion(props),
-        status: status(props)
+        status: status(props),
       };
     }
 
-    return null
+    return null;
   }
 
   toggleAccordion(tab) {
@@ -59,11 +59,11 @@ class AppList extends Component {
   }
 
   onEntered(tab) {
-    this.onCollapseAction(tab, true)
+    this.onCollapseAction(tab, true);
   }
 
   onExited(tab) {
-    this.onCollapseAction(tab, false)
+    this.onCollapseAction(tab, false);
   }
 
   onCollapseAction(tab, isOpen) {
@@ -71,12 +71,12 @@ class AppList extends Component {
     const state = prevState.map((x, index) => tab === index ? isOpen : x);
 
     this.setState({
-      status: state
+      status: state,
     });
   }
 
   redirectToAppRegistration() {
-    this.props.history.push(routes.NEW_APP.path)
+    this.props.history.push(routes.NEW_APP.path);
   }
 
   render() {
@@ -95,7 +95,7 @@ class AppList extends Component {
           </CardHeader>
           <CardBody>
             <div id="accordion">
-              { this.props.appList.map((app, idx) => {
+              {this.props.appList.map((app, idx) => {
                 return (
                   <Card key={idx} className="mb-1">
                     <CardHeader
@@ -104,8 +104,8 @@ class AppList extends Component {
                       onClick={() => this.toggleAccordion(idx)}
                       aria-expanded={this.state.accordion[idx]}
                       aria-controls={`collapse${idx}`}>
-                        <img src={'../../assets/img/default_app_icon.png'} className="img-circle img-icon" alt="" />
-                        <h5 className="text-left ml-2 d-inline-block m-0">{app.name}</h5>
+                      <img src={'../../assets/img/default_app_icon.png'} className="img-circle img-icon" alt=""/>
+                      <h5 className="text-left ml-2 d-inline-block m-0">{app.name}</h5>
                     </CardHeader>
                     <Collapse
                       isOpen={this.state.accordion[idx]}
@@ -120,7 +120,7 @@ class AppList extends Component {
                           clientId={app.clientId}
                           secret={app.secret}
                           description={app.description}
-                          isOpened={this.state.status[idx]} />
+                          isOpened={this.state.status[idx]}/>
                       </CardBody>
                     </Collapse>
                   </Card>

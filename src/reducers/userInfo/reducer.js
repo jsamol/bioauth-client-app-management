@@ -1,4 +1,4 @@
-import {userInfoActions} from "../../actions";
+import { userInfoActions } from '../../actions';
 
 const userInfo = (state = null, action) => {
   switch (action.type) {

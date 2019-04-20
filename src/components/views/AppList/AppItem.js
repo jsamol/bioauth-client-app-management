@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
-import PropTypes from 'prop-types'
-import {Button, Col, Row} from "reactstrap";
-import {Line} from "react-chartjs-2";
-import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
-import routes from "../../../navigation/BioAuthLayout/routes";
-import Input from "reactstrap/es/Input";
-import Label from "reactstrap/es/Label";
-import InputGroupAddon from "reactstrap/es/InputGroupAddon";
-import InputGroup from "reactstrap/es/InputGroup";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Button, Col, Row } from 'reactstrap';
+import { Line } from 'react-chartjs-2';
+import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import routes from '../../../navigation/routes';
+import Input from 'reactstrap/es/Input';
+import Label from 'reactstrap/es/Label';
+import InputGroupAddon from 'reactstrap/es/InputGroupAddon';
+import InputGroup from 'reactstrap/es/InputGroup';
 
 const line = {
   labels: [],
@@ -40,7 +40,7 @@ const line = {
 const options = {
   tooltips: {
     enabled: false,
-    custom: CustomTooltips
+    custom: CustomTooltips,
   },
   maintainAspectRatio: false,
 
@@ -51,7 +51,7 @@ const propTypes = {
   clientId: PropTypes.string.isRequired,
   secret: PropTypes.string.isRequired,
   description: PropTypes.string,
-  isOpened: PropTypes.bool.isRequired
+  isOpened: PropTypes.bool.isRequired,
 };
 const defaultProps = {};
 
@@ -64,19 +64,19 @@ class AppItem extends Component {
     this.redirectToAppDetails = this.redirectToAppDetails.bind(this);
 
     this.state = {
-      appSecretShown: false
-    }
+      appSecretShown: false,
+    };
   }
 
   toggleSecretVisibility() {
     const prevState = this.state.appSecretShown;
     this.setState({
-      appSecretShown: !prevState
+      appSecretShown: !prevState,
     });
   }
 
   redirectToAppDetails() {
-    this.props.history.push(`${routes.APP_LIST.path}/${this.props.name.replace(/\s+/g,'')}`)
+    this.props.history.push(`${routes.APP_LIST.path}/${this.props.name.replace(/\s+/g, '')}`);
   }
 
   render() {
@@ -100,11 +100,11 @@ class AppItem extends Component {
                   <InputGroup>
                     <Input
                       readOnly="readonly"
-                      type={this.state.appSecretShown ? "text" : "password"}
+                      type={this.state.appSecretShown ? 'text' : 'password'}
                       defaultValue={this.props.secret}/>
                     <InputGroupAddon addonType="append">
                       <Button color="secondary" onClick={this.toggleSecretVisibility}>
-                        {this.state.appSecretShown ? "Hide" : "Show"}
+                        {this.state.appSecretShown ? 'Hide' : 'Show'}
                       </Button>
                     </InputGroupAddon>
                   </InputGroup>
@@ -121,11 +121,11 @@ class AppItem extends Component {
           </Col>
           <Col xl="6">
             {this.props.isOpened &&
-              <div className="chart-wrapper">
-                <Line data={line} options={options}/>
-              </div>
+            <div className="chart-wrapper">
+              <Line data={line} options={options}/>
+            </div>
             }
-            </Col>
+          </Col>
         </Row>
       </div>
     );

@@ -1,15 +1,13 @@
-import {connect} from 'react-redux';
-import BioAuthHeader from "./BioAuthHeader";
+import { connect } from 'react-redux';
+import BioAuthHeader from './BioAuthHeader';
 
 const mapStateToProps = (state) => ({
-  email: state.userInfo ? state.userInfo.email : ""
+  email: state.userInfo ? state.userInfo.email : '',
 });
 
-const mapDispatchToProps = (dispatch) => ({
-
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(BioAuthHeader);

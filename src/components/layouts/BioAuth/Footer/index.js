@@ -1,3 +1,3 @@
-import BioAuthFooter from "./BioAuthFooter";
+import BioAuthFooter from './BioAuthFooter';
 
 export default BioAuthFooter;

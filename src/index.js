@@ -1,20 +1,20 @@
 import 'react-app-polyfill/ie9'; // For IE 9-11 support
 import 'react-app-polyfill/ie11'; // For IE 11 support
-import './polyfill'
+import './polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {createStore} from "redux";
+import { createStore } from 'redux';
 import rootReducer from './reducers';
-import {Provider} from "react-redux";
+import { Provider } from 'react-redux';
 
 const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById('root'))
 ;

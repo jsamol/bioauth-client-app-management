@@ -1,6 +1,6 @@
-import React, {Component, Suspense} from 'react'
+import React, { Component, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import {withRouter} from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import {
   AppBreadcrumb,
   AppFooter,
@@ -12,12 +12,11 @@ import {
   AppSidebarMinimizer,
   AppSidebarNav,
 } from '@coreui/react';
-import sidebarNavigation from "../../../navigation/BioAuthLayout/nav";
-import routes from "../../../navigation/BioAuthLayout/routes";
-import {Container} from "reactstrap";
-import {Redirect, Route, Switch} from "react-router-dom";
-import Keycloak from "keycloak-js";
-import {apiController} from "../../../network/ApiController";
+import { Container } from 'reactstrap';
+import Keycloak from 'keycloak-js';
+import apiController from '../../../network';
+import sidebarNav from '../../../navigation/sidebarNav';
+import routes from '../../../navigation/routes';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
 const BioAuthFooter = React.lazy(() => import('./Footer'));
@@ -29,13 +28,13 @@ const propTypes = {
       name: PropTypes.string.isRequired,
       clientId: PropTypes.string,
       secret: PropTypes.string,
-      description: PropTypes.string
-    })
+      description: PropTypes.string,
+    }),
   ),
   setApps: PropTypes.func.isRequired,
 
   userInfo: PropTypes.object,
-  setUserInfo: PropTypes.func.isRequired
+  setUserInfo: PropTypes.func.isRequired,
 };
 const defaultProps = {};
 
@@ -60,11 +59,11 @@ class BioAuthLayout extends Component {
     const appsNavigation = this.props.apps.map((app) => {
       return {
         name: app.name,
-        url: `/apps/${app.name.replace(/\s+/g,'')}`,
-        icon: 'fa fa-android'
-      }
+        url: `/apps/${app.name.replace(/\s+/g, '')}`,
+        icon: 'fa fa-android',
+      };
     });
-    return { items: [ ...sidebarNavigation, ...appsNavigation ] };
+    return { items: [...sidebarNav, ...appsNavigation] };
   };
 
   signOut() {
@@ -76,11 +75,11 @@ class BioAuthLayout extends Component {
   componentDidMount() {
     const keycloak = Keycloak('/keycloak.json');
     keycloak.init({
-      onLoad: 'login-required'
+      onLoad: 'login-required',
     }).success((res) => {
       this.setState({
         keycloak: keycloak,
-        authenticated: res
+        authenticated: res,
       });
 
       apiController.token = keycloak.token;
@@ -94,12 +93,11 @@ class BioAuthLayout extends Component {
   }
 
   loadUserInfo() {
-    this.state.keycloak.loadUserInfo()
-      .success((data) => {
-        this.props.setUserInfo(data);
-      }).error((error) => {
+    this.state.keycloak.loadUserInfo().success((data) => {
+      this.props.setUserInfo(data);
+    }).error((error) => {
       // TODO: Handle error properly
-      console.log(error)
+      console.log(error);
     });
   }
 
@@ -109,26 +107,26 @@ class BioAuthLayout extends Component {
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
-    })
+    });
   }
 
   render() {
     return (
       <div className="app">
         <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
+          <Suspense fallback={this.loading()}>
             <BioAuthHeader onLogout={this.signOut}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
+            <AppSidebarHeader/>
+            <AppSidebarForm/>
             <Suspense>
               <AppSidebarNav navConfig={this.navigation()} {...this.props} />
             </Suspense>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
+            <AppSidebarFooter/>
+            <AppSidebarMinimizer/>
           </AppSidebar>
           <main className="main">
             <AppBreadcrumb appRoutes={this.routeList()}/>
@@ -152,13 +150,11 @@ class BioAuthLayout extends Component {
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
-                        render={props => (
-                          <route.component {...routeProps} {...props} />
-                        )} />
-                    ) : (null);
+                        render={props => <route.component {...routeProps} {...props} />}/>
+                    ) : null;
                   })}
-                  <Redirect from="/" exact={true} to="/dashboard" />
-                  <Redirect from="/*" to="/not-found" />
+                  <Redirect from="/" exact={true} to="/dashboard"/>
+                  <Redirect from="/*" to="/not-found"/>
                 </Switch>
               </Suspense>
             </Container>
@@ -166,11 +162,11 @@ class BioAuthLayout extends Component {
         </div>
         <AppFooter>
           <Suspense fallback={this.loading()}>
-            <BioAuthFooter />
+            <BioAuthFooter/>
           </Suspense>
         </AppFooter>
       </div>
-    )
+    );
   }
 }
 

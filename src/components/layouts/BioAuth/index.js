@@ -1,3 +1,3 @@
-import BioAuthLayoutContainer from "./BioAuthLayoutContainer";
+import BioAuthLayoutContainer from './BioAuthLayoutContainer';
 
-export default BioAuthLayoutContainer
+export default BioAuthLayoutContainer;

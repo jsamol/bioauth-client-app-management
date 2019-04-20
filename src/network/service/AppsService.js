@@ -1,17 +1,17 @@
-import {apps_path} from "../ApiConst";
+import { apps_path } from '../ApiConst';
 
 const handleResponse = (res) => {
   if (res.ok) {
-    return res.json()
+    return res.json();
   } else {
-    throw new Error(`${res.status}: ${res.statusText}`)
+    throw new Error(`${res.status}: ${res.statusText}`);
   }
 };
 
 export const getApps = (headers, onSuccess, onError, doFinally) => {
   fetch(apps_path, {
     method: 'GET',
-    headers
+    headers,
   }).then((res) => handleResponse(res))
     .then((data) => onSuccess(data))
     .catch((error) => onError(error))
@@ -23,7 +23,7 @@ export const addApp = (app, headers, onSuccess, onError, doFinally) => {
     credentials: 'include',
     method: 'POST',
     headers,
-    body: JSON.stringify(app)
+    body: JSON.stringify(app),
   }).then((res) => handleResponse(res))
     .then((data) => onSuccess(data))
     .catch((error) => onError(error))

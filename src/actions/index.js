@@ -1,5 +1,5 @@
-import {appActions, addApp, setApps} from "./app/actions";
-import {userInfoActions, setUserInfo} from "./userInfo/actions";
+import { appActions, addApp, setApps } from './app/actions';
+import { userInfoActions, setUserInfo } from './userInfo/actions';
 
 export {
   appActions,
@@ -7,5 +7,5 @@ export {
   setApps,
 
   userInfoActions,
-  setUserInfo
-}
+  setUserInfo,
+};
