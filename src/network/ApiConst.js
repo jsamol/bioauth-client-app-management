@@ -4,9 +4,9 @@ export const apps_path = `${api_version}/apps`;
 
 export const header = {
   AUTHORIZATION: 'Authorization',
-  CONTENT_TYPE: 'Content-Type'
+  CONTENT_TYPE: 'Content-Type',
 };
 
 export const contentType = {
-  JSON: 'application/json'
+  JSON: 'application/json',
 };

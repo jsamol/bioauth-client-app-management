@@ -1,3 +1,3 @@
-import {apiController} from './ApiController'
+import apiController from './ApiController'
 
 export default apiController

@@ -1,6 +1,15 @@
-import React, {Component} from 'react';
-import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
-import {apiController} from "../../../network/ApiController";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import apiController from '../../../network';
+import PropTypes from 'prop-types';
+import routes from '../../../navigation/routes';
+
+const propTypes = {
+  addApp: PropTypes.func.isRequired,
+};
+
+const defaultProps = {};
 
 class NewApp extends Component {
 
@@ -13,7 +22,7 @@ class NewApp extends Component {
     this.state = {
       name: null,
       description: null,
-      disableForm: false
+      disableForm: false,
     };
   }
 
@@ -29,17 +38,17 @@ class NewApp extends Component {
   registerApp(event) {
     event.preventDefault();
     this.setState({
-      disableForm: true
+      disableForm: true,
     });
     apiController.registerApp(this.state.name, this.state.description, (res) => {
-      // TODO: Handle response
-      console.log(res);
+      this.props.addApp(res);
+      this.props.history.push(`${routes.APP_LIST.path}/${res.name.replace(/\s+/g, '')}`);
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
     }, () => {
       this.setState({
-        disableForm: false
+        disableForm: false,
       });
     });
   }
@@ -60,7 +69,7 @@ class NewApp extends Component {
                       <img
                         src={'../../assets/img/default_app_icon.png'}
                         className="img-icon-lg d-inline"
-                        alt="" />
+                        alt=""/>
                     </Col>
                     <Col sm="6" className="mb-1">
                       <FormGroup>
@@ -71,7 +80,7 @@ class NewApp extends Component {
                           placeholder="The name to be associated with the App ID"
                           onChange={this.handleTextChange}
                           disabled={this.state.disableForm}
-                          required />
+                          required/>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -79,7 +88,8 @@ class NewApp extends Component {
                     <Col>
                       <FormGroup>
                         <Label htmlFor="description">Description</Label>
-                        <Input type="textarea" id="description" onChange={this.handleTextChange} disabled={this.state.disableForm} />
+                        <Input type="textarea" id="description" onChange={this.handleTextChange}
+                               disabled={this.state.disableForm}/>
                       </FormGroup>
                     </Col>
                   </Row>
@@ -99,5 +109,8 @@ class NewApp extends Component {
     );
   }
 }
+
+NewApp.propTypes = propTypes;
+NewApp.defaultProps = defaultProps;
 
 export default NewApp;
