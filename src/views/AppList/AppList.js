@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardHeader, Collapse} from 'reactstrap';
+import {withRouter} from "react-router-dom";
+import {Button, Card, CardBody, CardHeader, Collapse, Row} from 'reactstrap';
 import PropTypes from 'prop-types'
+import Col from "reactstrap/es/Col";
+import routes from "../../navigation/BioAuthLayout/routes";
 
 const AppItem = React.lazy(() => import("../AppItem"));
 
@@ -27,6 +30,7 @@ class AppList extends Component {
     this.toggleAccordion = this.toggleAccordion.bind(this);
     this.onEntered = this.onEntered.bind(this);
     this.onExited = this.onExited.bind(this);
+    this.redirectToAppRegistration = this.redirectToAppRegistration.bind(this);
 
     this.state = {
       accordion: accordion(props),
@@ -43,6 +47,15 @@ class AppList extends Component {
     }
 
     return null
+  }
+
+  toggleAccordion(tab) {
+    const prevState = this.state.accordion;
+    const state = prevState.map((x, index) => tab === index ? !x : x);
+
+    this.setState({
+      accordion: state,
+    });
   }
 
   onEntered(tab) {
@@ -62,13 +75,8 @@ class AppList extends Component {
     });
   }
 
-  toggleAccordion(tab) {
-    const prevState = this.state.accordion;
-    const state = prevState.map((x, index) => tab === index ? !x : x);
-
-    this.setState({
-      accordion: state,
-    });
+  redirectToAppRegistration() {
+    this.props.history.push(routes.NEW_APP.path)
   }
 
   render() {
@@ -76,7 +84,14 @@ class AppList extends Component {
       <div className="animated fadeIn">
         <Card>
           <CardHeader>
-            <i className="icon-list"></i> Registered Apps
+            <Row className="d-flex align-items-center">
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
+                <i className="icon-list"></i> Registered Apps
+              </Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0 d-flex justify-content-end">
+                <Button color="ghost-primary" onClick={this.redirectToAppRegistration}>Add New</Button>
+              </Col>
+            </Row>
           </CardHeader>
           <CardBody>
             <div id="accordion">
@@ -123,4 +138,4 @@ class AppList extends Component {
 AppList.propTypes = propTypes;
 AppList.defaultProps = defaultProps;
 
-export default AppList;
+export default withRouter(AppList);

@@ -1,7 +1,9 @@
+import routes from "./routes";
+
 export default [
   {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: routes.DASHBOARD.path,
     icon: 'icon-speedometer'
   },
   {
@@ -15,12 +17,12 @@ export default [
   },
   {
     name: 'All',
-    url: '/apps',
+    url: routes.APP_LIST.path,
     icon: 'icon-list'
   },
   {
     name: 'New App',
-    url: '/new-app',
+    url: routes.NEW_APP.path,
     icon: 'icon-plus'
   }
 ];

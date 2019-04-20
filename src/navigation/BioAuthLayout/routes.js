@@ -1,7 +1,8 @@
 import React from 'react';
 
 const Dashboard = React.lazy(() => import('../../views/Dashboard/Dashboard'));
-const Apps = React.lazy(() => import('../../views/AppList'));
+const AppList = React.lazy(() => import('../../views/AppList'));
+const NewApp = React.lazy(() => import('../../views/NewApp'));
 
 const routes = {
   HOME: {
@@ -19,7 +20,13 @@ const routes = {
     path: '/apps',
     name: 'AppList',
     exact: true,
-    component: Apps
+    component: AppList
+  },
+  NEW_APP: {
+    path: '/apps/new',
+    name: 'NewApp',
+    exact: true,
+    component: NewApp
   }
 };
 
