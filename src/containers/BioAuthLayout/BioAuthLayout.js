@@ -15,8 +15,8 @@ import sidebarNavigation from "../../navigation/BioAuthLayout/nav";
 import routes from "../../navigation/BioAuthLayout/routes";
 import {Container} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
-import apiController from "../../network";
 import Keycloak from "keycloak-js";
+import {apiController} from "../../network/ApiController";
 
 const AppListHeader = React.lazy(() => import('./BioAuthHeader'));
 const AppListFooter = React.lazy(() => import('./BioAuthFooter'));
@@ -58,7 +58,7 @@ class BioAuthLayout extends Component {
   }
 
   componentDidMount() {
-    const keycloak = Keycloak('keycloak.json');
+    const keycloak = Keycloak('/keycloak.json');
     keycloak.init({
       onLoad: 'login-required'
     }).success((res) => {

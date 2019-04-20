@@ -1,0 +1,6 @@
+{
+  "name": "NewApp",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./NewApp.js"
+}
