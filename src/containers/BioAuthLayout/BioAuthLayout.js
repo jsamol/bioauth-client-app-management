@@ -1,5 +1,5 @@
 import React, {Component, Suspense} from 'react'
-
+import {withRouter} from "react-router-dom";
 import {
   AppBreadcrumb,
   AppFooter,
@@ -15,7 +15,8 @@ import sidebarNavigation from "../../navigation/BioAuthLayout/nav";
 import routes from "../../navigation/BioAuthLayout/routes";
 import {Container} from "reactstrap";
 import {Redirect, Route, Switch} from "react-router-dom";
-import {getApps} from "../../network";
+import apiController from "../../network";
+import Keycloak from "keycloak-js";
 
 const AppListHeader = React.lazy(() => import('./BioAuthHeader'));
 const AppListFooter = React.lazy(() => import('./BioAuthFooter'));
@@ -25,7 +26,12 @@ class BioAuthLayout extends Component {
   constructor(props) {
     super(props);
 
+    this.signOut = this.signOut.bind(this);
+
     this.state = {
+      keycloak: null,
+      authenticated: false,
+      userInfo: null,
       apps: []
     };
   }
@@ -45,8 +51,46 @@ class BioAuthLayout extends Component {
     return { items: [ ...sidebarNavigation, ...appsNavigation ] };
   };
 
+  signOut() {
+    if (this.state.keycloak) {
+      this.state.keycloak.logout();
+    }
+  }
+
   componentDidMount() {
-    getApps((res) => {
+    const keycloak = Keycloak('keycloak.json');
+    keycloak.init({
+      onLoad: 'login-required'
+    }).success((res) => {
+      this.setState({
+        keycloak: keycloak,
+        authenticated: res
+      });
+
+      apiController.token = keycloak.token;
+
+      this.loadUserInfo();
+      this.loadApps();
+    }).error(() => {
+      // TODO: Handle error properly
+      console.log('Authentication: error');
+    });
+  }
+
+  loadUserInfo() {
+    this.state.keycloak.loadUserInfo()
+      .success((userInfo) => {
+        this.setState({
+          userInfo
+        });
+      }).error((error) => {
+      // TODO: Handle error properly
+      console.log(error)
+    });
+  }
+
+  loadApps() {
+    apiController.getApps((res) => {
       this.setState({
         apps: res.data
       })
@@ -61,7 +105,7 @@ class BioAuthLayout extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <AppListHeader onLogout={e=>this.signOut(e)}/>
+            <AppListHeader email={this.state.userInfo ? this.state.userInfo.email : ""} onLogout={this.signOut}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -118,4 +162,4 @@ class BioAuthLayout extends Component {
   }
 }
 
-export default BioAuthLayout;
+export default withRouter(BioAuthLayout);
