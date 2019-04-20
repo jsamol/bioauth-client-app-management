@@ -1,4 +1,5 @@
 import React, {Component, Suspense} from 'react'
+import PropTypes from 'prop-types';
 import {withRouter} from "react-router-dom";
 import {
   AppBreadcrumb,
@@ -21,6 +22,20 @@ import {apiController} from "../../../network/ApiController";
 const AppListHeader = React.lazy(() => import('./BioAuthHeader'));
 const AppListFooter = React.lazy(() => import('./BioAuthFooter'));
 
+const propTypes = {
+  apps: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      clientId: PropTypes.string,
+      secret: PropTypes.string,
+      description: PropTypes.string
+    })
+  ),
+  setApps: PropTypes.func.isRequired
+};
+const defaultProps = {};
+
 class BioAuthLayout extends Component {
 
   constructor(props) {
@@ -32,7 +47,6 @@ class BioAuthLayout extends Component {
       keycloak: null,
       authenticated: false,
       userInfo: null,
-      apps: []
     };
   }
 
@@ -41,7 +55,7 @@ class BioAuthLayout extends Component {
   routeList = () => Object.keys(routes).map((key) => routes[key]);
 
   navigation = () => {
-    const appsNavigation = this.state.apps.map((app) => {
+    const appsNavigation = this.props.apps.map((app) => {
       return {
         name: app.name,
         url: `/apps/${app.name.replace(/\s+/g,'')}`,
@@ -91,9 +105,7 @@ class BioAuthLayout extends Component {
 
   loadApps() {
     apiController.getApps((data) => {
-      this.setState({
-        apps: data
-      })
+      this.props.setApps(data);
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
@@ -128,7 +140,7 @@ class BioAuthLayout extends Component {
 
                     switch (route.name) {
                       case routes.APP_LIST.name:
-                        routeProps.appList = this.state.apps;
+                        routeProps.appList = this.props.apps;
                         break;
                       default:
                         break;
@@ -161,5 +173,8 @@ class BioAuthLayout extends Component {
     )
   }
 }
+
+BioAuthLayout.propTypes = propTypes;
+BioAuthLayout.defaultProps = defaultProps;
 
 export default withRouter(BioAuthLayout);
