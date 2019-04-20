@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Row} from "reactstrap";
+import {apiController} from "../../network/ApiController";
 
 class NewApp extends Component {
 
@@ -13,7 +14,8 @@ class NewApp extends Component {
     this.state = {
       name: null,
       icon: null,
-      description: null
+      description: null,
+      disableForm: false
     };
   }
 
@@ -34,6 +36,18 @@ class NewApp extends Component {
 
   registerApp(event) {
     event.preventDefault();
+    this.setState({
+      disableForm: true
+    });
+    apiController.registerApp(this.state.name, this.state.icon, this.state.description, (res) => {
+      console.log(res);
+    }, (error) => {
+      console.log(error);
+    }, () => {
+      this.setState({
+        disableForm: false
+      });
+    });
   }
 
   render() {
@@ -56,13 +70,18 @@ class NewApp extends Component {
                           id="name"
                           placeholder="The name to be associated with the App ID"
                           onChange={this.handleTextChange}
+                          disabled={this.state.disableForm}
                           required />
                       </FormGroup>
                     </Col>
                     <Col sm="4" className="mb-3">
                       <FormGroup>
                         <Label htmlFor="icon">App Icon</Label>
-                        <Input type="file" id="icon" className="d-inline" onChange={this.handleFileChange} />
+                        <Input
+                          type="file"
+                          id="icon"
+                          className="d-inline"
+                          onChange={this.handleFileChange} disabled={this.state.disableForm} />
                       </FormGroup>
                     </Col>
                     <Col sm="2" className="mb-3">
@@ -76,14 +95,14 @@ class NewApp extends Component {
                     <Col>
                       <FormGroup>
                         <Label htmlFor="description">Description</Label>
-                        <Input type="textarea" id="description" onChange={this.handleTextChange} />
+                        <Input type="textarea" id="description" onChange={this.handleTextChange} disabled={this.state.disableForm} />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col>
                       <FormGroup>
-                        <Button type="submit" color="primary">Submit</Button>
+                        <Button type="submit" color="primary" disabled={this.state.disableForm}>Submit</Button>
                       </FormGroup>
                     </Col>
                   </Row>

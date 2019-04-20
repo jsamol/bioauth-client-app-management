@@ -1,14 +1,26 @@
-import {getApps} from './service/AppsService'
+import {addApp, getApps} from './service/AppsService'
 import {header} from "./ApiConst";
 
 export const apiController = {
   token: null,
-
-  getApps: (onSuccess, onError) => {
+  get headers() {
     let headers = {};
     if (apiController.token) {
-      headers[header.AUTHORIZATION] = `Bearer ${apiController.token}`;
+      headers[header.AUTHORIZATION] = `Bearer ${this.token}`;
     }
-    getApps(headers, onSuccess, onError)
+    return headers;
+  },
+
+  getApps(onSuccess, onError, doFinally=(() => {})) {
+    getApps(apiController.headers, onSuccess, onError, doFinally)
+  },
+
+  registerApp(name, icon, description, onSuccess, onError, doFinally=(() => {})) {
+    const app = {
+      name,
+      icon,
+      description
+    };
+    addApp(app, apiController.headers, onSuccess, onError, doFinally);
   }
 };
