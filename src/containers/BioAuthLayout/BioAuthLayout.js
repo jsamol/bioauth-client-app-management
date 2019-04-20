@@ -90,9 +90,9 @@ class BioAuthLayout extends Component {
   }
 
   loadApps() {
-    apiController.getApps((res) => {
+    apiController.getApps((data) => {
       this.setState({
-        apps: res.data
+        apps: data
       })
     }, (error) => {
       // TODO: Handle error properly

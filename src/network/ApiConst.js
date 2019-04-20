@@ -1,7 +1,12 @@
-const api_base = 'http://localhost:8081/api/v1';
+const api_version = '/v1';
 
-export const apps_path = `${api_base}/apps`;
+export const apps_path = `${api_version}/apps`;
 
 export const header = {
-  AUTHORIZATION: 'Authorization'
+  AUTHORIZATION: 'Authorization',
+  CONTENT_TYPE: 'Content-Type'
+};
+
+export const contentType = {
+  JSON: 'application/json'
 };

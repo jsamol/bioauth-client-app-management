@@ -32,8 +32,10 @@ class NewApp extends Component {
       disableForm: true
     });
     apiController.registerApp(this.state.name, this.state.description, (res) => {
+      // TODO: Handle response
       console.log(res);
     }, (error) => {
+      // TODO: Handle error properly
       console.log(error);
     }, () => {
       this.setState({
