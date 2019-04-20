@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import {Button, Col, Row} from "reactstrap";
 import {Line} from "react-chartjs-2";
 import {CustomTooltips} from "@coreui/coreui-plugin-chartjs-custom-tooltips";
-import routes from "../../navigation/BioAuthLayout/routes";
+import routes from "../../../navigation/BioAuthLayout/routes";
 import Input from "reactstrap/es/Input";
 import Label from "reactstrap/es/Label";
 import InputGroupAddon from "reactstrap/es/InputGroupAddon";

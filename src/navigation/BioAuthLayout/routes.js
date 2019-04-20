@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Dashboard = React.lazy(() => import('../../views/Dashboard/Dashboard'));
-const AppList = React.lazy(() => import('../../views/AppList'));
-const NewApp = React.lazy(() => import('../../views/NewApp'));
+const Dashboard = React.lazy(() => import('../../components/views/Dashboard/Dashboard'));
+const AppList = React.lazy(() => import('../../components/views/AppList'));
+const NewApp = React.lazy(() => import('../../components/views/NewApp'));
 
 const routes = {
   HOME: {
@@ -17,13 +17,13 @@ const routes = {
     component: Dashboard
   },
   APP_LIST: {
-    path: '/apps',
+    path: '/app',
     name: 'AppList',
     exact: true,
     component: AppList
   },
   NEW_APP: {
-    path: '/apps/new',
+    path: '/app/new',
     name: 'NewApp',
     exact: true,
     component: NewApp

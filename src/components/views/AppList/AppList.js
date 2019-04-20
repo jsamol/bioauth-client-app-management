@@ -3,9 +3,9 @@ import {withRouter} from "react-router-dom";
 import {Button, Card, CardBody, CardHeader, Collapse, Row} from 'reactstrap';
 import PropTypes from 'prop-types'
 import Col from "reactstrap/es/Col";
-import routes from "../../navigation/BioAuthLayout/routes";
+import routes from "../../../navigation/BioAuthLayout/routes";
 
-const AppItem = React.lazy(() => import("../AppItem"));
+const AppItem = React.lazy(() => import("../AppItem/AppItem"));
 
 const accordion = (props) => {
   const appsNumber = props.appList.length;
