@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Input, InputGroup, InputGroupAddon, Label } from 'reactstrap';
+import Form from 'reactstrap/es/Form';
 
 const propTypes = {
   appId: PropTypes.string.isRequired,
@@ -30,7 +31,7 @@ class AppKeys extends Component {
   render() {
 
     return (
-      <div>
+      <Form autoComplete="off">
         <div className="mb-3">
           <Label>App ID</Label>
           <Input readOnly="readonly" type="text" defaultValue={this.props.appId}/>
@@ -49,7 +50,7 @@ class AppKeys extends Component {
             </InputGroupAddon>
           </InputGroup>
         </div>
-      </div>
+      </Form>
     );
   }
 }
