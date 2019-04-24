@@ -3,6 +3,7 @@ import React from 'react';
 const Dashboard = React.lazy(() => import('../components/views/Dashboard'));
 const AppList = React.lazy(() => import('../components/views/AppList'));
 const NewApp = React.lazy(() => import('../components/views/NewApp'));
+const AppDetails = React.lazy(() => import('../components/views/AppDetails'));
 
 const routes = {
   HOME: {
@@ -27,6 +28,12 @@ const routes = {
     name: 'NewApp',
     exact: true,
     component: NewApp,
+  },
+  APP_DETAILS: {
+    path: '/apps/:appName',
+    name: 'AppDetails',
+    exact: true,
+    component: AppDetails,
   },
 };
 
