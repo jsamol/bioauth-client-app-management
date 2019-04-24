@@ -5,11 +5,9 @@ import { Button, Col, Row } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import routes from '../../../navigation/routes';
-import Input from 'reactstrap/es/Input';
-import Label from 'reactstrap/es/Label';
-import InputGroupAddon from 'reactstrap/es/InputGroupAddon';
-import InputGroup from 'reactstrap/es/InputGroup';
 import stringUtils from '../../../utils/stringUtils';
+
+const AppKeys = React.lazy(() => import('../AppKeys'));
 
 const line = {
   labels: [],
@@ -49,8 +47,8 @@ const options = {
 
 const propTypes = {
   name: PropTypes.string.isRequired,
-  clientId: PropTypes.string.isRequired,
-  secret: PropTypes.string.isRequired,
+  appId: PropTypes.string.isRequired,
+  appSecret: PropTypes.string.isRequired,
   description: PropTypes.string,
   isOpened: PropTypes.bool.isRequired,
 };
@@ -92,24 +90,7 @@ class AppItem extends Component {
             </Row>
             <Row>
               <Col sm="8">
-                <div className="mb-3">
-                  <Label>App ID</Label>
-                  <Input readOnly="readonly" type="text" defaultValue={this.props.clientId}/>
-                </div>
-                <div>
-                  <Label>App Secret</Label>
-                  <InputGroup>
-                    <Input
-                      readOnly="readonly"
-                      type={this.state.appSecretShown ? 'text' : 'password'}
-                      defaultValue={this.props.secret}/>
-                    <InputGroupAddon addonType="append">
-                      <Button color="secondary" onClick={this.toggleSecretVisibility}>
-                        {this.state.appSecretShown ? 'Hide' : 'Show'}
-                      </Button>
-                    </InputGroupAddon>
-                  </InputGroup>
-                </div>
+                <AppKeys appId={this.props.appId} appSecret={this.props.appSecret}/>
               </Col>
             </Row>
             <Row>

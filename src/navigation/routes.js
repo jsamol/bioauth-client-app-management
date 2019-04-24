@@ -30,7 +30,7 @@ const routes = {
     component: NewApp,
   },
   APP_DETAILS: {
-    path: '/apps/:name',
+    path: '/apps/:appName',
     name: 'AppDetails',
     exact: true,
     component: AppDetails,

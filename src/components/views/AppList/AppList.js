@@ -21,8 +21,8 @@ const propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      clientId: PropTypes.string,
-      secret: PropTypes.string,
+      appId: PropTypes.string.isRequired,
+      appSecret: PropTypes.string.isRequired,
       description: PropTypes.string,
     }),
   ).isRequired,
@@ -125,8 +125,8 @@ class AppList extends Component {
                       <CardBody>
                         <AppItem
                           name={app.name}
-                          clientId={app.clientId}
-                          secret={app.secret}
+                          appId={app.appId}
+                          appSecret={app.appSecret}
                           description={app.description}
                           isOpened={this.state.status[idx]}/>
                       </CardBody>
