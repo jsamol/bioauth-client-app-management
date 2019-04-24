@@ -1,6 +1,6 @@
-const api_version = '/v1';
+const apiPath = '/api/v1';
 
-export const apps_path = `${api_version}/apps`;
+export const appsPath = `${apiPath}/apps`;
 
 export const header = {
   AUTHORIZATION: 'Authorization',

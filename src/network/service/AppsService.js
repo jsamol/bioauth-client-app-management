@@ -1,4 +1,4 @@
-import { apps_path } from '../ApiConst';
+import { appsPath } from '../ApiConst';
 
 const handleResponse = (res) => {
   if (res.ok) {
@@ -9,7 +9,7 @@ const handleResponse = (res) => {
 };
 
 export const getApps = (headers, onSuccess, onError, doFinally) => {
-  fetch(apps_path, {
+  fetch(appsPath, {
     method: 'GET',
     headers,
   }).then((res) => handleResponse(res))
@@ -19,7 +19,7 @@ export const getApps = (headers, onSuccess, onError, doFinally) => {
 };
 
 export const addApp = (app, headers, onSuccess, onError, doFinally) => {
-  fetch(apps_path, {
+  fetch(appsPath, {
     credentials: 'include',
     method: 'POST',
     headers,
