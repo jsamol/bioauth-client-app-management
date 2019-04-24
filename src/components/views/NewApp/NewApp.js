@@ -47,7 +47,6 @@ class NewApp extends Component {
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
-    }, () => {
       this.setState({
         disableForm: false,
       });
