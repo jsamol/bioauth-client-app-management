@@ -8,8 +8,8 @@ const propTypes = {
   app: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    appId: PropTypes.string,
-    appSecret: PropTypes.string,
+    appId: PropTypes.string.isRequired,
+    appSecret: PropTypes.string.isRequired,
     description: PropTypes.string,
   }),
 };

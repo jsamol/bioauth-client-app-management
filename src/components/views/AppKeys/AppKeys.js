@@ -34,7 +34,7 @@ class AppKeys extends Component {
       <Form autoComplete="off">
         <div className="mb-3">
           <Label>App ID</Label>
-          <Input readOnly="readonly" type="text" defaultValue={this.props.appId}/>
+          <Input readOnly="readonly" type="text" value={this.props.appId}/>
         </div>
         <div>
           <Label>App Secret</Label>
@@ -42,7 +42,7 @@ class AppKeys extends Component {
             <Input
               readOnly="readonly"
               type={this.state.appSecretShown ? 'text' : 'password'}
-              defaultValue={this.props.appSecret}/>
+              value={this.props.appSecret}/>
             <InputGroupAddon addonType="append">
               <Button color="secondary" onClick={this.toggleSecretVisibility}>
                 {this.state.appSecretShown ? 'Hide' : 'Show'}
