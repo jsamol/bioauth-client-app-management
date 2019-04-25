@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.scss';
+import { CookiesProvider } from 'react-cookie';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -13,15 +14,17 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <React.Suspense fallback={loading()}>
-          <Switch>
-            <Route exact path="/not-found" name="Page 404" render={props => <Page404 {...props}/>}/>
-            <Route exact path="/error" name="Page 500" render={props => <Page500 {...props}/>}/>
-            <Route path="/" name="Home" render={props => <BioAuthLayout {...props}/>}/>
-          </Switch>
-        </React.Suspense>
-      </BrowserRouter>
+      <CookiesProvider>
+        <BrowserRouter>
+          <React.Suspense fallback={loading()}>
+            <Switch>
+              <Route exact path="/not-found" name="Page 404" render={props => <Page404 {...props}/>}/>
+              <Route exact path="/error" name="Page 500" render={props => <Page500 {...props}/>}/>
+              <Route path="/" name="Home" render={props => <BioAuthLayout {...props}/>}/>
+            </Switch>
+          </React.Suspense>
+        </BrowserRouter>
+      </CookiesProvider>
     );
   }
 }

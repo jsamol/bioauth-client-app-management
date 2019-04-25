@@ -18,7 +18,8 @@ import apiController from '../../../network';
 import sidebarNav from '../../../navigation/sidebarNav';
 import routes from '../../../navigation/routes';
 import stringUtils from '../../../utils/stringUtils';
-import { httpStatus } from '../../../network/ApiConst';
+import { header, httpMethod } from '../../../network/ApiConst';
+import { withCookies } from 'react-cookie';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
 const BioAuthFooter = React.lazy(() => import('./Footer'));
@@ -119,6 +120,10 @@ class BioAuthLayout extends Component {
   }
 
   onRequestIntercepted(url, config) {
+    if (config.method === httpMethod.POST || config.method === httpMethod.PUT) {
+      config.headers[header.XSRF_TOKEN] = this.props.cookies.get('XSRF-TOKEN');
+      config.credentials = 'include';
+    }
     return [url, config];
   }
 
@@ -187,4 +192,4 @@ class BioAuthLayout extends Component {
 BioAuthLayout.propTypes = propTypes;
 BioAuthLayout.defaultProps = defaultProps;
 
-export default withRouter(BioAuthLayout);
+export default withCookies(withRouter(BioAuthLayout));
