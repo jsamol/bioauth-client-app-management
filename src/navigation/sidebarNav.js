@@ -11,14 +11,14 @@ const sidebarNav = [
     name: 'Apps',
   },
   {
+    name: 'Add New',
+    url: routes.NEW_APP.path,
+    icon: 'icon-plus',
+  },
+  {
     name: 'All',
     url: routes.APP_LIST.path,
     icon: 'icon-list',
-  },
-  {
-    name: 'New App',
-    url: routes.NEW_APP.path,
-    icon: 'icon-plus',
   },
 ];
 

@@ -25,7 +25,7 @@ const BioAuthFooter = React.lazy(() => import('./Footer'));
 const propTypes = {
   apps: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       appId: PropTypes.string,
       appSecret: PropTypes.string,
@@ -55,7 +55,7 @@ class BioAuthLayout extends Component {
     const appsNavigation = this.props.apps.map((app) => {
       return {
         name: app.name,
-        url: `/apps/${stringUtils.toUrlParam(app.name)}`,
+        url: routes.APP_DETAILS.path.replace(":appName", stringUtils.toUrlParam(app.name)),
         icon: 'fa fa-android',
       };
     });

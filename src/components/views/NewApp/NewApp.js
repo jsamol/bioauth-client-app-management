@@ -42,12 +42,12 @@ class NewApp extends Component {
       disableForm: true,
     });
     apiController.registerApp(this.state.name, this.state.description, (res) => {
+      const path = routes.APP_DETAILS.path.replace(":appName", stringUtils.toUrlParam(res.name));
       this.props.addApp(res);
-      this.props.history.push(`${routes.APP_LIST.path}/${stringUtils.toUrlParam(res.name)}`);
+      this.props.history.push(path);
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
-    }, () => {
       this.setState({
         disableForm: false,
       });
