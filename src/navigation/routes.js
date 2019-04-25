@@ -24,13 +24,13 @@ const routes = {
     component: AppList,
   },
   NEW_APP: {
-    path: '/apps/new',
-    name: 'New',
+    path: '/new-app',
+    name: 'New App',
     exact: true,
     component: NewApp,
   },
   APP_DETAILS: {
-    path: '/apps/:appName',
+    path: '/:appName',
     name: 'App Details',
     exact: true,
     component: AppDetails,

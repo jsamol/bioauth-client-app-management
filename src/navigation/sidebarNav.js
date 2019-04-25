@@ -11,7 +11,7 @@ const sidebarNav = [
     name: 'Apps',
   },
   {
-    name: 'New App',
+    name: 'Add New',
     url: routes.NEW_APP.path,
     icon: 'icon-plus',
   },

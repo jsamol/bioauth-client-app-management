@@ -75,7 +75,8 @@ class AppItem extends Component {
   }
 
   redirectToAppDetails() {
-    this.props.history.push(`${routes.APP_LIST.path}/${stringUtils.toUrlParam(this.props.name)}`);
+    const path = routes.APP_DETAILS.path.replace(":appName", stringUtils.toUrlParam(this.props.name));
+    this.props.history.push(path);
   }
 
   render() {

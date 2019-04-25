@@ -55,7 +55,7 @@ class BioAuthLayout extends Component {
     const appsNavigation = this.props.apps.map((app) => {
       return {
         name: app.name,
-        url: `/apps/${stringUtils.toUrlParam(app.name)}`,
+        url: routes.APP_DETAILS.path.replace(":appName", stringUtils.toUrlParam(app.name)),
         icon: 'fa fa-android',
       };
     });
