@@ -18,6 +18,7 @@ import apiController from '../../../network';
 import sidebarNav from '../../../navigation/sidebarNav';
 import routes from '../../../navigation/routes';
 import stringUtils from '../../../utils/stringUtils';
+import { httpStatus } from '../../../network/ApiConst';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
 const BioAuthFooter = React.lazy(() => import('./Footer'));
@@ -47,6 +48,16 @@ const defaultProps = {};
 
 class BioAuthLayout extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.onRequestIntercepted = this.onRequestIntercepted.bind(this);
+    this.onRequestErrorIntercepted = this.onRequestErrorIntercepted.bind(this);
+    this.onResponseIntercepted = this.onResponseIntercepted.bind(this);
+    this.onResponseErrorIntercepted = this.onResponseErrorIntercepted.bind(this);
+  }
+
+
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
 
   routeList = () => Object.keys(routes).map((key) => routes[key]);
@@ -63,6 +74,13 @@ class BioAuthLayout extends Component {
   };
 
   componentDidMount() {
+    apiController.registerInterceptor(
+      this.onRequestIntercepted,
+      this.onRequestErrorIntercepted,
+      this.onResponseIntercepted,
+      this.onResponseErrorIntercepted
+    );
+
     const keycloak = Keycloak('/keycloak.json');
     keycloak.init({
       onLoad: 'login-required',
@@ -98,6 +116,22 @@ class BioAuthLayout extends Component {
       // TODO: Handle error properly
       console.log(error);
     });
+  }
+
+  onRequestIntercepted(url, config) {
+    return [url, config];
+  }
+
+  onRequestErrorIntercepted(error) {
+    return error;
+  }
+
+  onResponseIntercepted(response) {
+    return response;
+  }
+
+  onResponseErrorIntercepted(error) {
+    return error;
   }
 
   render() {
