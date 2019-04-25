@@ -6,7 +6,7 @@ import AppKeys from '../AppKeys';
 
 const propTypes = {
   app: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     appId: PropTypes.string,
     appSecret: PropTypes.string,
