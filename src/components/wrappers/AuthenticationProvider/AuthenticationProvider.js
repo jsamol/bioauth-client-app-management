@@ -37,27 +37,22 @@ class AuthenticationProvider extends Component {
       this.onRequestIntercepted,
       this.onRequestErrorIntercepted,
       this.onResponseIntercepted,
-      this.onResponseErrorIntercepted
+      this.onResponseErrorIntercepted,
     );
 
     const keycloak = Keycloak('/keycloak.json');
-    keycloak.init({
-      onLoad: 'login-required',
-    }).success((res) => {
-      this.props.setKeycloak(keycloak);
-    }).error(() => {
-      if (this.props.authenticated) {
-        this.props.deleteKeycloak();
-      }
-
-      // TODO: Handle error properly
-      console.log('Authentication: error');
-    });
+    keycloak.init({ onLoad: 'login-required' })
+      .success((res) => {
+        this.props.setKeycloak(keycloak);
+      }).error(() => {
+        // TODO: Handle error properly
+       console.log('Authentication: error');
+      });
   }
 
   onRequestIntercepted(url, config) {
     if (this.props.authenticated) {
-      config.headers[header.AUTHORIZATION] = `Bearer ${this.props.keycloak.token}`
+      config.headers[header.AUTHORIZATION] = `Bearer ${this.props.keycloak.token}`;
     }
 
     if (config.method === httpMethod.POST || config.method === httpMethod.PUT) {
@@ -73,19 +68,14 @@ class AuthenticationProvider extends Component {
 
   onResponseIntercepted(response) {
     if (response.status === httpStatus.UNAUTHORIZED && !this.state.tokenRefreshed) {
-      this.props.keycloak.updateToken(tokenMinValidity)
-        .success((res) => {
-          this.onTokenRefresh()
-        })
-        .error((error) => {
-          this.onTokenRefreshError()
-        })
+      this.props.keycloak
+        .updateToken(tokenMinValidity)
+        .success((res) => this.onTokenRefresh())
+        .error((error) => this.onTokenRefreshError());
     } else if (response.status === httpStatus.UNAUTHORIZED && this.state.tokenRefreshed) {
       this.onTokenRefreshError();
     } else if (this.state.tokenRefreshed) {
-      this.setState({
-        tokenRefreshed: false,
-      });
+      this.setState({ tokenRefreshed: false });
     }
     return response;
   }
@@ -95,13 +85,13 @@ class AuthenticationProvider extends Component {
   }
 
   onTokenRefresh() {
-    this.setState({ tokenRefreshed: true, });
+    this.setState({ tokenRefreshed: true });
     apiController.request();
   }
 
   onTokenRefreshError() {
     apiController.unregisterRequest();
-    this.setState({ tokenRefreshed: false, });
+    this.setState({ tokenRefreshed: false });
     this.props.deleteKeycloak();
   }
 
