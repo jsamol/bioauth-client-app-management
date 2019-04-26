@@ -1,4 +1,4 @@
-import { appsPath } from '../ApiConst';
+import { appsPath, httpMethod } from '../ApiConst';
 
 const handleResponse = (res) => {
   if (res.ok) {
@@ -10,7 +10,7 @@ const handleResponse = (res) => {
 
 export const getApps = (headers, onSuccess, onError, doFinally) => {
   fetch(appsPath, {
-    method: 'GET',
+    method: httpMethod.GET,
     headers,
   }).then((res) => handleResponse(res))
     .then((data) => onSuccess(data))
@@ -20,8 +20,7 @@ export const getApps = (headers, onSuccess, onError, doFinally) => {
 
 export const addApp = (app, headers, onSuccess, onError, doFinally) => {
   fetch(appsPath, {
-    credentials: 'include',
-    method: 'POST',
+    method: httpMethod.POST,
     headers,
     body: JSON.stringify(app),
   }).then((res) => handleResponse(res))
