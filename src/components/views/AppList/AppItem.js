@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Col, Row } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
-import routes from '../../../navigation/routes';
-import stringUtils from '../../../utils/stringUtils';
+import pathUtils from '../../../utils/pathUtils';
 
 const AppKeys = React.lazy(() => import('../AppKeys'));
 
@@ -46,10 +45,13 @@ const options = {
 };
 
 const propTypes = {
-  name: PropTypes.string.isRequired,
-  appId: PropTypes.string.isRequired,
-  appSecret: PropTypes.string.isRequired,
-  description: PropTypes.string,
+  app: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    appId: PropTypes.string.isRequired,
+    appSecret: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }),
   isOpened: PropTypes.bool.isRequired,
 };
 const defaultProps = {};
@@ -75,8 +77,7 @@ class AppItem extends Component {
   }
 
   redirectToAppDetails() {
-    const path = routes.APP_DETAILS.path.replace(":appName", stringUtils.toUrlParam(this.props.name));
-    this.props.history.push(path);
+    this.props.history.push(pathUtils.getAppDetailsPath(this.props.app));
   }
 
   render() {
@@ -86,12 +87,12 @@ class AppItem extends Component {
           <Col xl="6">
             <Row>
               <Col>
-                {this.props.description && <p className="text-justify">{this.props.description}</p>}
+                {this.props.app.description && <p className="text-justify">{this.props.app.description}</p>}
               </Col>
             </Row>
             <Row>
               <Col sm="8">
-                <AppKeys appId={this.props.appId} appSecret={this.props.appSecret}/>
+                <AppKeys appId={this.props.app.appId} appSecret={this.props.app.appSecret}/>
               </Col>
             </Row>
             <Row>

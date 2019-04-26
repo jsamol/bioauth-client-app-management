@@ -124,10 +124,7 @@ class AppList extends Component {
                       aria-labelledby={`heading${idx}`}>
                       <CardBody>
                         <AppItem
-                          name={app.name}
-                          appId={app.appId}
-                          appSecret={app.appSecret}
-                          description={app.description}
+                          app={app}
                           isOpened={this.state.status[idx]}/>
                       </CardBody>
                     </Collapse>

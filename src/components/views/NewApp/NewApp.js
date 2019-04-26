@@ -3,8 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import apiController from '../../../network';
 import PropTypes from 'prop-types';
-import routes from '../../../navigation/routes';
-import stringUtils from '../../../utils/stringUtils';
+import pathUtils from '../../../utils/pathUtils';
 
 const propTypes = {
   addApp: PropTypes.func.isRequired,
@@ -42,9 +41,8 @@ class NewApp extends Component {
       disableForm: true,
     });
     apiController.registerApp(this.state.name, this.state.description, (res) => {
-      const path = routes.APP_DETAILS.path.replace(":appName", stringUtils.toUrlParam(res.name));
       this.props.addApp(res);
-      this.props.history.push(path);
+      this.props.history.push(pathUtils.getAppDetailsPath(res));
     }, (error) => {
       // TODO: Handle error properly
       console.log(error);
