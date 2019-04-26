@@ -18,19 +18,19 @@ const routes = {
     component: Dashboard,
   },
   APP_LIST: {
-    path: '/apps',
+    path: '/apps/all',
     name: 'Apps',
     exact: true,
     component: AppList,
   },
   NEW_APP: {
-    path: '/new-app',
+    path: '/apps/new',
     name: 'New App',
     exact: true,
     component: NewApp,
   },
   APP_DETAILS: {
-    path: '/:id/:name',
+    path: '/apps/:id/:name',
     name: 'App Details',
     exact: true,
     component: AppDetails,
