@@ -4,6 +4,7 @@ import Keycloak from 'keycloak-js';
 import apiController from '../../../network';
 import { header, httpMethod, httpStatus, tokenMinValidity } from '../../../network/ApiConst';
 import { withCookies } from 'react-cookie';
+import {activeProfile} from "../../../config/appConfig";
 
 const propTypes = {
   children: PropTypes.any.isRequired,
@@ -39,8 +40,8 @@ class AuthenticationProvider extends Component {
       this.onResponseIntercepted,
       this.onResponseErrorIntercepted,
     );
-
-    const keycloak = Keycloak('/keycloak.json');
+    const keycloakPath = `/keycloak-${activeProfile}.json`;
+    const keycloak = Keycloak(keycloakPath);
     keycloak.init({ onLoad: 'login-required' })
       .success((res) => {
         this.props.setKeycloak(keycloak);
