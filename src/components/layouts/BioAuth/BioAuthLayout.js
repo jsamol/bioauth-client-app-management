@@ -16,7 +16,6 @@ import { Container } from 'reactstrap';
 import apiController from '../../../network';
 import sidebarNav from '../../../navigation/sidebarNav';
 import routes from '../../../navigation/routes';
-import stringUtils from '../../../utils/stringUtils';
 import pathUtils from '../../../utils/pathUtils';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
