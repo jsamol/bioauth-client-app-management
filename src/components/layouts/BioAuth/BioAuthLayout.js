@@ -17,6 +17,7 @@ import apiController from '../../../network';
 import sidebarNav from '../../../navigation/sidebarNav';
 import routes from '../../../navigation/routes';
 import stringUtils from '../../../utils/stringUtils';
+import pathUtils from '../../../utils/pathUtils';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
 const BioAuthFooter = React.lazy(() => import('./Footer'));
@@ -51,7 +52,7 @@ class BioAuthLayout extends Component {
     const appsNavigation = this.props.apps.map((app) => {
       return {
         name: app.name,
-        url: routes.APP_DETAILS.path.replace(':appName', stringUtils.toUrlParam(app.name)),
+        url: pathUtils.getAppDetailsPath(app),
         icon: 'fa fa-android',
       };
     });

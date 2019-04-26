@@ -3,7 +3,7 @@ import AppDetails from './AppDetails';
 import stringUtils from '../../../utils/stringUtils';
 
 const mapStateToProps = (state, ownProps) => ({
-  app: state.apps.find((app) => stringUtils.toUrlParam(app.name) === ownProps.match.params.appName),
+  app: state.apps.find((app) => stringUtils.toUrlParam(app.id) === ownProps.match.params.id),
 });
 
 const mapDispatchToProps = (dispatch) => ({});
