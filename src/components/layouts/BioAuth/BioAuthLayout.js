@@ -18,7 +18,7 @@ import apiController from '../../../network';
 import sidebarNav from '../../../navigation/sidebarNav';
 import routes from '../../../navigation/routes';
 import stringUtils from '../../../utils/stringUtils';
-import { header, httpMethod } from '../../../network/ApiConst';
+import { header, httpMethod, httpStatus, tokenMinValidity } from '../../../network/ApiConst';
 import { withCookies } from 'react-cookie';
 
 const BioAuthHeader = React.lazy(() => import('./Header'));
@@ -41,8 +41,8 @@ const propTypes = {
 
   setUserInfo: PropTypes.func.isRequired,
 
+  keycloak: PropTypes.object,
   authenticated: PropTypes.bool.isRequired,
-  loadUserInfo: PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
@@ -56,6 +56,10 @@ class BioAuthLayout extends Component {
     this.onRequestErrorIntercepted = this.onRequestErrorIntercepted.bind(this);
     this.onResponseIntercepted = this.onResponseIntercepted.bind(this);
     this.onResponseErrorIntercepted = this.onResponseErrorIntercepted.bind(this);
+
+    this.state = {
+      tokenRefreshed: false,
+    };
   }
 
 
@@ -87,7 +91,6 @@ class BioAuthLayout extends Component {
       onLoad: 'login-required',
     }).success((res) => {
       this.props.setKeycloak(keycloak);
-      apiController.token = keycloak.token;
 
       this.loadUserInfo();
       this.loadApps();
@@ -102,7 +105,7 @@ class BioAuthLayout extends Component {
   }
 
   loadUserInfo() {
-    this.props.loadUserInfo().success((data) => {
+    this.props.keycloak.loadUserInfo().success((data) => {
       this.props.setUserInfo(data);
     }).error((error) => {
       // TODO: Handle error properly
@@ -120,6 +123,10 @@ class BioAuthLayout extends Component {
   }
 
   onRequestIntercepted(url, config) {
+    if (this.props.authenticated) {
+      config.headers[header.AUTHORIZATION] = `Bearer ${this.props.keycloak.token}`
+    }
+
     if (config.method === httpMethod.POST || config.method === httpMethod.PUT) {
       config.headers[header.XSRF_TOKEN] = this.props.cookies.get('XSRF-TOKEN');
       config.credentials = 'include';
@@ -132,11 +139,33 @@ class BioAuthLayout extends Component {
   }
 
   onResponseIntercepted(response) {
+    if (response.status === httpStatus.UNAUTHORIZED && !this.state.tokenRefreshed) {
+      this.props.keycloak.updateToken(tokenMinValidity)
+        .success((res) => {
+          this.onTokenRefresh()
+        })
+        .error((error) => {
+          this.onTokenRefreshError()
+        })
+    } else if (response.status === httpStatus.UNAUTHORIZED && this.state.tokenRefreshed) {
+      this.onTokenRefreshError();
+    }
     return response;
   }
 
   onResponseErrorIntercepted(error) {
     return error;
+  }
+
+  onTokenRefresh() {
+    this.setState({ tokenRefreshed: true, });
+    apiController.request();
+  }
+
+  onTokenRefreshError() {
+    apiController.unregisterRequest();
+    this.setState({ tokenRefreshed: false, });
+    this.props.deleteKeycloak();
   }
 
   render() {

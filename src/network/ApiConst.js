@@ -2,6 +2,8 @@ const apiPath = '/api/v1';
 
 export const appsPath = `${apiPath}/apps`;
 
+export const tokenMinValidity = 30;
+
 export const httpMethod = {
   GET: 'GET',
   POST: 'POST',

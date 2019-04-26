@@ -4,8 +4,12 @@ import BioAuthLayout from './BioAuthLayout';
 
 const mapStateToProps = (state) => ({
   apps: state.apps,
+
+  keycloak: state.keycloak,
   authenticated: state.keycloak !== null,
+
   loadUserInfo: state.keycloak ? state.keycloak.loadUserInfo : (() => {}),
+  updateToken: state.keycloak ? state.keycloak.updateToken : (() => {})
 });
 
 const mapDispatchToProps = (dispatch) => ({
