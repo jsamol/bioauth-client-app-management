@@ -1,0 +1,8 @@
+{
+  "realm": "bioauth",
+  "auth-server-url": "https://bioauth-keycloak.herokuapp.com/auth",
+  "ssl-required": "external",
+  "resource": "bioauth-login",
+  "public-client": true,
+  "confidential-port": 0
+}

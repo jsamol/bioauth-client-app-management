@@ -33,6 +33,8 @@
     "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "cross-env": "^5.2.0",
     "react-scripts": "^2.1.8"
   },
   "scripts": {
@@ -41,7 +43,9 @@
     "test": "react-scripts test",
     "test:cov": "react-scripts test --coverage",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:gradle": "cross-env CI=true npm run test && npm run build",
+    "postbuild": "copyfiles -u 1 \"build/**/*\" \"../src/main/resources/static\""
   },
   "proxy": "http://localhost:8081",
   "eslintConfig": {
